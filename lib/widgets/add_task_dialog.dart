@@ -41,6 +41,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
         child: Form(
           key: _formKey,
           child: Column(
+            spacing: 16,
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -69,7 +70,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                 },
                 textCapitalization: TextCapitalization.sentences,
               ),
-              const SizedBox(height: 16),
+
               TextFormField(
                 controller: _descriptionController,
                 decoration: InputDecoration(
@@ -87,123 +88,112 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                 minLines: 1,
                 textCapitalization: TextCapitalization.sentences,
               ),
-              const SizedBox(height: 24),
-              Row(
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Priority',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.grey.shade600,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        DropdownButtonFormField<TaskPriority>(
-                          value: _selectedPriority,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.grey.shade50,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide.none,
-                            ),
-                            contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 12,
-                            ),
-                          ),
-                          items: TaskPriority.values.map((priority) {
-                            return DropdownMenuItem(
-                              value: priority,
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.flag,
-                                    color: _getPriorityColor(priority),
-                                    size: 20,
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    priority.displayName,
-                                    style: const TextStyle(fontSize: 14),
-                                  ),
-                                ],
-                              ),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            if (value != null) {
-                              setState(() {
-                                _selectedPriority = value;
-                              });
-                            }
-                          },
-                        ),
-                      ],
+                  Text(
+                    'Priority',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.grey.shade600,
                     ),
                   ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Category',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.grey.shade600,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        DropdownButtonFormField<TaskCategory>(
-                          value: _selectedCategory,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.grey.shade50,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide.none,
-                            ),
-                            contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 12,
-                            ),
-                          ),
-                          items: TaskCategory.values.map((category) {
-                            return DropdownMenuItem(
-                              value: category,
-                              child: Row(
-                                children: [
-                                  Icon(category.icon, size: 20),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    category.displayName,
-                                    style: const TextStyle(fontSize: 14),
-                                  ),
-                                ],
-                              ),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            if (value != null) {
-                              setState(() {
-                                _selectedCategory = value;
-                              });
-                            }
-                          },
-                        ),
-                      ],
+                  DropdownButtonFormField<TaskPriority>(
+                    initialValue: _selectedPriority,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.grey.shade50,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none,
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 12,
+                      ),
                     ),
+                    items: TaskPriority.values.map((priority) {
+                      return DropdownMenuItem(
+                        value: priority,
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.flag,
+                              color: _getPriorityColor(priority),
+                              size: 20,
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              priority.displayName,
+                              style: const TextStyle(fontSize: 14),
+                            ),
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      if (value != null) {
+                        setState(() {
+                          _selectedPriority = value;
+                        });
+                      }
+                    },
                   ),
                 ],
               ),
-              const SizedBox(height: 24),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Category',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
+                  DropdownButtonFormField<TaskCategory>(
+                    initialValue: _selectedCategory,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.grey.shade50,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none,
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 12,
+                      ),
+                    ),
+                    items: TaskCategory.values.map((category) {
+                      return DropdownMenuItem(
+                        value: category,
+                        child: Row(
+                          children: [
+                            Icon(category.icon, size: 20),
+                            const SizedBox(width: 8),
+                            Text(
+                              category.displayName,
+                              style: const TextStyle(fontSize: 14),
+                            ),
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      if (value != null) {
+                        setState(() {
+                          _selectedCategory = value;
+                        });
+                      }
+                    },
+                  ),
+                ],
+              ),
               _buildDatePicker(
                 icon: Icons.calendar_today_outlined,
                 label: 'Due Date',
@@ -211,7 +201,6 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                 onClear: () => setState(() => _selectedDueDate = null),
                 onSelect: () => _selectDate(isDueDate: true),
               ),
-              const SizedBox(height: 12),
               _buildDatePicker(
                 icon: Icons.notifications_outlined,
                 label: 'Remind Me',
